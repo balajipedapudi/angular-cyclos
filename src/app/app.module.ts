@@ -20,6 +20,7 @@ import { BankingComponent } from './banking/banking.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,9 @@ import {MatTableModule} from '@angular/material/table';
     HttpClientModule,
     MatSelectModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatBadgeModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

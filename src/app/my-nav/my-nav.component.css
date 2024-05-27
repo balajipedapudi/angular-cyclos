@@ -20,14 +20,17 @@
   top: 0;
   z-index: 5;
   height: 3.6rem;
-  background-color: rgba(2, 120, 174, 1);
-  box-shadow: 0px 1px rgba(2, 120, 174, 1);
+  background-color: white;
+  padding: 40px;
 }
 
 .spacer{
   flex: 1 1 auto;
 }
 
+.nav-link button{
+  color: black;
+}
 .nav-link{
   display: flex;
   gap: 8px;
@@ -49,7 +52,7 @@
   align-items: center;
   height: calc(100% - 3px);
   /* margin: 0 10px; */
-  color: white;
+  color: black;
   text-decoration: none;
   font-size: 14px;
   font-weight: 400;
@@ -60,7 +63,7 @@
   -webkit-box-orient: horizontal;
 } 
 .nav-link-inserted:hover{
-  color: black;
+  color: darkgoldenrod;
 }
 
 .mat-toolbar span{
@@ -69,13 +72,13 @@
 }
 
 .active{
-  border-bottom: 3px solid !important;
-  color:white !important;
+  /* border-bottom: 3px solid !important; */
+  color:darkgoldenrod !important;
   transition: border-bottom 0.3s ease-in-out;
 }
 
 .title{
-  color: white;
+  color: black;
   font-weight: 600 !important;
 }
 

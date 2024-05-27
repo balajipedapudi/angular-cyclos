@@ -16,37 +16,31 @@
       </button>
 
       <a class="nav-link">
-        <img class="img-tink" src="./../../assets/images/frontend.png" alt="Cyclos">
-        <span class="title">Cyclos</span>
+        <!-- <img class="img-tink" src="./../../assets/images/frontend.png" alt="Cyclos"> -->
+        <!-- <span class="title">Cyclos</span> -->
       </a>
       <span class="spacer"></span>
 
 
-      <div class="nav-link" *ngIf="isShow && !(isHandset$ | async)"> 
-        <a routerLink="dashboard"  routerLinkActive="active" class="nav-link-inserted" >
-          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="grid_view"></mat-icon>
-          Dashboard</a>
-        <a routerLink="banking"  routerLinkActive="active" class="nav-link-inserted">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_balance_wallet"></mat-icon>
-          Banking</a>
-        <a routerLink="inventory"  routerLinkActive="active" class="nav-link-inserted">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="group"></mat-icon>
-          Users</a>
-          <a routerLink="inventory"  routerLinkActive="active" class="nav-link-inserted">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="person"></mat-icon>
-            Profile</a>
-            <a routerLink="inventory"  routerLinkActive="active" class="nav-link-inserted">
-              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="mail"></mat-icon>
-              </a>
-              <a routerLink="inventory"  routerLinkActive="active" class="nav-link-inserted">
-                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="notifications"></mat-icon>
-                </a>
-                <a routerLink="inventory"  routerLinkActive="active" class="nav-link-inserted">
-                  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="help"></mat-icon>
-                  </a>
-                  <a routerLinkActive="active" class="nav-link-inserted"title="Help Icon" (click)="logout()">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="logout"></mat-icon>
-                    </a>
+      <div class="nav-link" *ngIf="isShow && !(isHandset$ | async)">
+        <a routerLink="dashboard" routerLinkActive="active" class="nav-link-inserted">Dashboard</a>
+        <a routerLink="banking" routerLinkActive="active" class="nav-link-inserted">Banking</a>
+        <a routerLink="inventory" routerLinkActive="active" class="nav-link-inserted">Users</a>
+        <a routerLink="inventory" routerLinkActive="active" class="nav-link-inserted">Profile</a>
+        <a routerLink="inventory" routerLinkActive="active" class="nav-link-inserted">
+          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="mail"></mat-icon>
+        </a>
+        <a routerLink="inventory" routerLinkActive="active" class="nav-link-inserted">
+          <mat-icon aria-hidden="false" aria-label="Example home icon" matBadge="15" matBadgeColor="warn" fontIcon="notifications" matBadgeSize="small"></mat-icon>
+        </a>
+        <a routerLink="inventory" routerLinkActive="active" class="nav-link-inserted">
+          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="help"></mat-icon>
+        </a>
+
+        <!-- <button mat-flat-button color="success" (click)="logout()" class="nav-link-inserted">Logout</button> -->
+        <a routerLinkActive="active" class="nav-link-inserted" title="Help Icon" (click)="logout()" >
+          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="logout"></mat-icon>
+        </a>
       </div>
 
     </mat-toolbar>
