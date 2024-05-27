@@ -21,6 +21,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import {MatBadgeModule} from '@angular/material/badge';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {MatBadgeModule} from '@angular/material/badge';
     DashboardComponent,
     LoginComponent,
     BankingComponent,
+    FooterComponent,
   
   ],
   imports: [

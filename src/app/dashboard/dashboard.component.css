@@ -167,6 +167,8 @@
     margin: 24px 0 12px;
     padding: 14px 24px;
     font: 600 16px Inter, sans-serif;
+    color:white;
+    cursor: pointer;
 }
 
 @media (max-width: 991px) {

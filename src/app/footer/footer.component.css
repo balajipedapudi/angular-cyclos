@@ -1,0 +1,9 @@
+.list-style li{
+ list-style-type: none;
+ color:white;
+ padding-right: 10px;
+}
+.footer-bg{
+    background-color: black;
+    padding:20px 0px;
+}
