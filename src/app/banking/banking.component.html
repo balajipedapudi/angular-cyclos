@@ -1,0 +1,276 @@
+<div class="container"style="height: 90vh;">
+    <div class="row"style="height: 100%;">
+        <div class="col-sm-12">
+            
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+                <mat-tab label="Debit Account">
+                    <form [formGroup]="optionDetails" >
+                    <div class="fields-card">
+                        <div class="col-sm-12 d-flex justify-content-between">
+                            <h1>Debit Account</h1>
+                            <div class="d-flex">
+                                <button *ngIf="isShowFiltersDebit" mat-button (click)="hideFiltersDebit()"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>Hide Filters</button>
+                                <button *ngIf="!isShowFiltersDebit" mat-button (click)="showFiltersDebit()"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>Show Filters</button>
+                                <div class="dropdown">
+                                <button mat-button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="download"></mat-icon>Download</button>
+
+                                    <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Dropdown button
+                                    </button> -->
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                      <li><a class="dropdown-item" href="#">CSV</a></li>
+                                      <li><a class="dropdown-item" href="#">EXCEL</a></li>
+                                      <li><a class="dropdown-item" href="#">PDF</a></li>
+                                    </ul>
+                                  </div>
+                            </div>
+                        </div><hr>
+                        <div *ngIf="isShowFiltersDebit" class="col-sm-12 d-flex" style="flex-wrap: wrap;">
+                            <div class="col-sm-4 mb-3 p-2">
+                                <label for="period" class="form-label">Period</label>
+                                <select class="form-select" formControlName="options" id="period" placeholder="Period" aria-label="Default select example" width="100%">
+                                  <option *ngFor="let item of options" [value]="item.id">{{ item.label }}</option>
+                                </select>
+                              </div>
+                            <div class="col-sm-4 mb-3 p-2">
+                                <label for="filter" class="form-label">Filter</label>
+                                <select class="form-select" formControlName="options" id="filter" placeholder="Filter" aria-label="Default select example" width="100%">
+                                  <option *ngFor="let item of options" [value]="item.id">{{ item.label }}</option>
+                                </select>
+                              </div>
+                            <div class="col-sm-4 mb-3 p-2">
+                                <label for="fromAmount" class="form-label">From Amount</label>
+                                <input type="number" class="form-control" id="fromAmount" placeholder="From Amount" width="100%">
+                              </div>
+                            <div class="col-sm-4 mb-3 p-2">
+                                <label for="toAmount" class="form-label">To Amount</label>
+                                <input type="number" class="form-control" id="toAmount" placeholder="To Amount" width="100%">
+                              </div>
+                              <div class="col-sm-4 mb-3 p-2">
+                                <label for="direction" class="form-label">Direction</label>
+                                <select class="form-select" formControlName="options" id="direction" placeholder="Direction" aria-label="Default select example" width="100%">
+                                  <option *ngFor="let item of options" [value]="item.id">{{ item.label }}</option>
+                                </select>
+                              </div>
+                              <div class="col-sm-4 mb-3 p-2">
+                                <label for="groups" class="form-label">Groups</label>
+                                <select class="form-select" formControlName="options" id="groups" placeholder="Groups" aria-label="Default select example" width="100%">
+                                  <option *ngFor="let item of options" [value]="item.id">{{ item.label }}</option>
+                                </select>
+                              </div>
+                              <div class="col-sm-4 mb-3 p-2">
+                                <label for="channel" class="form-label">Channel</label>
+                                <select class="form-select" formControlName="options" id="channel" placeholder="Channel" aria-label="Default select example" width="100%">
+                                  <option *ngFor="let item of options" [value]="item.id">{{ item.label }}</option>
+                                </select>
+                              </div>
+                              <div class="col-sm-4 mb-3 p-2">
+                                <label for="orderBy" class="form-label">Order By</label>
+                                <select class="form-select" formControlName="options" id="orderBy" placeholder="Order By" aria-label="Default select example" width="100%">
+                                  <option *ngFor="let item of options" [value]="item.id">{{ item.label }}</option>
+                                </select>
+                              </div>
+                              <div class="col-sm-4 mb-3 p-2">
+                                <label for="user" class="form-label">User</label>
+                                <input type="search" class="form-control" id="user" placeholder="Type to search" width="100%">
+
+                              </div>
+                              
+                                              </div>
+                    </div>
+                </form>
+                <div>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="position">
+                          <th mat-header-cell *matHeaderCellDef>Date</th>
+                          <td mat-cell *matCellDef="let element">{{element.position}}</td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef>From/To</th>
+                          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="weight">
+                          <th mat-header-cell *matHeaderCellDef>Amount</th>
+                          <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+                        </ng-container>
+                      
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr
+                            mat-row
+                            (click)="clickedRows.add(row)"
+                            [class.demo-row-is-clicked]="clickedRows.has(row)"
+                            *matRowDef="let row; columns: displayedColumns;"
+                        ></tr>
+                      </table>
+                      
+                </div>
+                </mat-tab>
+                <mat-tab label="Organization Account">
+                    <form [formGroup]="optionDetails" >
+                    <div class="fields-card">
+                        <div class="col-sm-12 d-flex justify-content-between">
+                            <h1>Organization Account</h1>
+                            <div>
+                                <button *ngIf="isShowFiltersOrg" mat-button (click)="hideFiltersOrg()"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>Hide Filters</button>
+                                <button *ngIf="!isShowFiltersOrg" mat-button (click)="showFiltersOrg()"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>Show Filters</button>
+                                <button mat-button><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="download"></mat-icon>Download</button>
+                            </div>
+                        </div><hr>
+                        <div *ngIf="isShowFiltersOrg" class="col-sm-12 d-flex" style="flex-wrap: wrap;">
+                            <div class="col-sm-4 p-2">
+                                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                                    <mat-label>Period</mat-label>
+                                    <mat-select formControlName="options">
+                                      <mat-option *ngFor="let item of options" [value]="item.id">
+                                        {{item.label}}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-sm-4 p-2">
+                                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                                    <mat-label>Filter</mat-label>
+                                    <mat-select>
+                                      <mat-option >
+                                        
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                              </div>
+                            <div class="col-sm-4 p-2">
+                            <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                                <mat-label>From Amount</mat-label>
+                                <input matInput type="number">
+                              </mat-form-field>
+                              </div>
+                            <div class="col-sm-4 p-2">
+                            <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                                <mat-label>To Amount</mat-label>
+                                <input matInput type="number">
+                              </mat-form-field>
+                              </div>
+                              <div class="col-sm-4 p-2">
+                                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                                    <mat-label>Direction</mat-label>
+                                    <mat-select >
+                                      <mat-option >
+                                        
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                              </div><div class="col-sm-4 p-2">
+                                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                                    <mat-label>Groups</mat-label>
+                                    <mat-select >
+                                      <mat-option >
+                                        
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                              </div><div class="col-sm-4 p-2">
+                                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                                    <mat-label>Channel</mat-label>
+                                    <mat-select >
+                                      <mat-option >
+                                        
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                              </div><div class="col-sm-4 p-2">
+                                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                                    <mat-label>Order By</mat-label>
+                                    <mat-select >
+                                      <mat-option >
+                                        
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                              </div>
+                            <div class="col-sm-4 p-2">
+                                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                                    <mat-label>Period</mat-label>
+                                    <mat-select >
+                                      <mat-option >
+                                        
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                              </div>
+                        </div>
+                        <div *ngIf="isShowFiltersOrg" class="row"><hr>
+                        <div class="col-sm-12 col-md-6 d-flex">
+                            <div class="col-sm-6"><h3>Balance on {{oneYearBeforeDate}}</h3></div>
+                            <div class="col-sm-6"><h3>21000 $</h3></div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 d-flex">
+                            <div class="col-sm-6"><h3>Balance on {{currentDate}}</h3></div>
+                            <div class="col-sm-6"><h3>21000 $</h3></div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 d-flex">
+                            <div class="col-sm-6"><h3>Total Received</h3></div>
+                            <div class="col-sm-6"><h3>0 $</h3></div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 d-flex">
+                            <div class="col-sm-6"><h3>Total Paid</h3></div>
+                            <div class="col-sm-6"><h3>21000 $</h3></div>
+                        </div>
+                        <div class="col-sm-12 d-flex">
+                            <div class="col-sm-3"><h3>Net Income</h3></div>
+                            <div class="col-sm-3"><h3>21000 $</h3></div>
+                        </div>
+                    </div>
+                    <div class="row"*ngIf="!isShowFiltersOrg">
+                        <div class="col-sm-12 d-flex">
+                            <div class="col-sm-3"><h3>Balance</h3></div>
+                            <div class="col-sm-3"><h3>21000 $</h3></div>
+                        </div>
+                    </div>
+                    
+                    
+                    </div>
+                    
+                </form>
+                <div class="mt-5">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="position">
+                          <th mat-header-cell *matHeaderCellDef>Date</th>
+                          <td mat-cell *matCellDef="let element">{{element.position}}</td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef>From/To</th>
+                          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="weight">
+                          <th mat-header-cell *matHeaderCellDef>Amount</th>
+                          <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+                        </ng-container>
+                      
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr
+                            mat-row
+                            (click)="clickedRows.add(row)"
+                            [class.demo-row-is-clicked]="clickedRows.has(row)"
+                            *matRowDef="let row; columns: displayedColumns;"
+                        ></tr>
+                      </table>
+                      
+                </div>
+                </mat-tab>
+                <!-- <mat-tab label="Third">Content 3</mat-tab> -->
+              </mat-tab-group>
+            
+        </div>
+    </div>
+</div>

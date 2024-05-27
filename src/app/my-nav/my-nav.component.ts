@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 // export const userResolver: ResolveFn<boolean> = (
@@ -29,10 +30,15 @@ import { map, shareReplay } from 'rxjs/operators';
 
 })
 export class MyNavComponent implements OnInit {
-
+constructor(private router:Router){
+ if(localStorage.getItem('authId')){
+  this.isShow=true;
+ }
+}
   ngOnInit(): void {
   
   }
+  public isShow=false;
   private breakpointObserver = inject(BreakpointObserver);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -43,5 +49,11 @@ export class MyNavComponent implements OnInit {
   public displayPic = sessionStorage.getItem('profilePic');
   public displayName=sessionStorage.getItem('userName');
   
+  logout(){
+    localStorage.clear();
+    this.isShow=false
+    this.router.navigate(['/login'])
+  }
+
 }
 

@@ -11,13 +11,23 @@ import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyNavComponent } from './my-nav/my-nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { LoginComponent } from './login/login.component';
+import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
+import { BankingComponent } from './banking/banking.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
     AppComponent,
     MyNavComponent,
     DashboardComponent,
+    LoginComponent,
+    BankingComponent,
   
   ],
   imports: [
@@ -28,7 +38,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    MatSelectModule,
+    MatTabsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
