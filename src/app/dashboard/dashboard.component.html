@@ -11,139 +11,39 @@
         </div>
     </div>
     <div class="row mt-5 p-3 row-gap-3 gy-3">
-      <!-- <div class="col-sm-12 d-flex features"> -->
-          <div class="col-sm-12 col-md-2">
-            <div class="feature d-flex flex-column justify-content-center align-items-center">
-            <div class="icon-bg">
-              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="checkbook"> </mat-icon>
-            </div>
-            <div class="content">
-              <h4>Transfers overview</h4>
-            </div>
-          </div>
-          </div>
-          <div class=" col-sm-12 col-md-2 ">
-            <div class="feature d-flex flex-column justify-content-center align-items-center">
-            <div class="icon-bg">
-              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="payments"> </mat-icon>
-          </div>
-          <div class="content">
-              <h4>Pay User</h4>
-          </div>
-          </div>
-          </div>
-          <div class=" col-sm-12 col-md-2">
-            <div class="feature  d-flex flex-column justify-content-center align-items-center">
-            <div class="icon-bg">
-              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="payments"> </mat-icon>
-          </div>
-          <div class="content">
-              <h4>Pay System</h4>
-          </div>
-            </div>
-          </div>
-          <div class=" col-sm-12 col-md-2">
-            <div class="feature d-flex flex-column justify-content-center align-items-center">
-            <div class="icon-bg">
-              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="group"> </mat-icon>
-          </div>
-          <div class="content">
-              <h4>Directory</h4>
-          </div>
-          </div>
-          </div>
-          <div class=" col-sm-12 col-md-2">
-            <div class="feature d-flex flex-column justify-content-center align-items-center">
-            <div class="icon-bg">
-              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_balance_wallet"> </mat-icon>
-          </div>
-          <div class="content">
-              <h4>Balances overview</h4>
-          </div>
-          </div>
-      </div>
-      <div class=" col-sm-12 col-md-2 ">
+      <div *ngFor="let item of quickAccessWithIcons" class="col-sm-12 col-md-2">
         <div class="feature d-flex flex-column justify-content-center align-items-center">
-        <div class="icon-bg">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="person_check"> </mat-icon>
+          <div class="icon-bg">
+            <mat-icon aria-hidden="false" fontIcon="{{ item.icon }}"></mat-icon>
+          </div>
+          <div class="content">
+            <h4>{{ item.type }}</h4>
+          </div>
+        </div>
       </div>
-      <div class="content">
-          <h4>Pending Users</h4>
-      </div>
-      </div>
-  </div>
-  <div class=" col-sm-12 col-md-2">
-    <div class="feature d-flex flex-column justify-content-center align-items-center">
-    <div class="icon-bg">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="store"> </mat-icon>
-    </div>
-    <div class="content">
-      <h4>Contacts</h4>
-    </div>
-  </div>
-  </div>
-  <div class=" col-sm-12 col-md-2 ">
-    <div class="feature d-flex flex-column justify-content-center align-items-center">
-    <div class="icon-bg">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="person_add"> </mat-icon>
-  </div>
-  <div class="content">
-      <h4>Register User</h4>
-  </div>
-  </div>
-  </div>
-  <div class=" col-sm-12 col-md-2">
-    <div class="feature  d-flex flex-column justify-content-center align-items-center">
-    <div class="icon-bg">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="person"> </mat-icon>
-  </div>
-  <div class="content">
-      <h4>Edit Profile</h4>
-  </div>
-    </div>
-  </div>
-  <div class=" col-sm-12 col-md-2">
-    <div class="feature d-flex flex-column justify-content-center align-items-center">
-    <div class="icon-bg">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="key"> </mat-icon>
-  </div>
-  <div class="content">
-      <h4>Password</h4>
-  </div>
-  </div>
-  </div>
-  <div class=" col-sm-12 col-md-2">
-    <div class="feature d-flex flex-column justify-content-center align-items-center">
-    <div class="icon-bg">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="settings"> </mat-icon>
-  </div>
-  <div class="content">
-      <h4>Settings</h4>
-  </div>
-  </div>
-</div>
-<div class=" col-sm-12 col-md-2 ">
-<div class="feature d-flex flex-column justify-content-center align-items-center">
-<div class="icon-bg">
-  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="notifications_active"> </mat-icon>
-</div>
-<div class="content">
-  <h4>Notifications</h4>
-</div>
-</div>
-</div>
+
     </div>
     <div class="row">
-<div class="chart"></div>
+<div class="col-sm-12 col-md-6 p-3">
+  <div class="p-2 graph-card">
+    <div class="d-flex justify-content-between">
+      <h4 class="col-sm-7">Debit Account</h4>
+      <h4 class="col-sm-5 d-flex justify-content-end" style="color:rgba(205, 95, 80, 1)">{{debitAccBalance}}</h4>
     </div>
+    
+  <div id="chart" ></div>
 </div>
-
-<!-- <div class="div">
-    <div class="div-2">
-      Make payments
-      <br />
-      Faster
+</div>
+<div class="col-sm-12 col-md-6 p-3">
+  <div class="p-2 graph-card">
+    <div class="d-flex justify-content-between">
+      <h4 class="col-sm-7">Organization Account</h4>
+      <h4 class="col-sm-5 d-flex justify-content-end" style="color:rgba(67, 162, 105, 1)">{{organizationAccBalance}}</h4>
     </div>
-    <div class="div-3">choosen by over 3 million customer</div>
-    <div class="div-4">Button</div>
-  </div> -->
+  <div id="chart1" ></div>
+</div>
+</div>
+    </div>
+
+    
+</div>

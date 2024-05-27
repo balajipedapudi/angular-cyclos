@@ -202,3 +202,7 @@ margin-top: 10px;
 .icon-bg mat-icon{
   color: #3B3B5B;
 }
+.graph-card{
+  border-radius: 10px;
+  background-color: rgba(245, 243, 243, 1);
+}

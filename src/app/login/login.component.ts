@@ -43,6 +43,8 @@ getUserAgentId(): string {
 signIn(){
   console.log(this.loginDetails.value.username);
   let userAgent=this.getUserAgentId();
+  console.log(userAgent);
+  
   // Your username and password
 const username = this.loginDetails.value.username;
 const password = this.loginDetails.value.password;
@@ -53,13 +55,14 @@ const credentials = `${username}:${password}`;
 
 const base64Credentials = btoa(credentials);
 
-const authorizationHeader = `Basic ${base64Credentials}`;
+const authorizationHeader = `${base64Credentials}`;
 
 // user agent id
 this.loginServices.logIn(userAgent, authorizationHeader).subscribe((response:any)=>{
   console.log(response);
-  localStorage.setItem('authId',response.Authorization)
-  if(localStorage.getItem('authId')){
+  localStorage.setItem('cookie',response.Cookie)
+  localStorage.setItem('token',response.Token)
+  if(localStorage.getItem('token')){
     this.comp.isShow=true;
   }
   this.router.navigate(['/dashboard'])

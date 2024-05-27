@@ -31,7 +31,7 @@ import { Router } from '@angular/router';
 })
 export class MyNavComponent implements OnInit {
 constructor(private router:Router){
- if(localStorage.getItem('authId')){
+ if(localStorage.getItem('token')){
   this.isShow=true;
  }
 }
@@ -50,7 +50,9 @@ constructor(private router:Router){
   public displayName=sessionStorage.getItem('userName');
   
   logout(){
-    localStorage.clear();
+     localStorage.removeItem('token');
+     localStorage.removeItem('cookie');
+    
     this.isShow=false
     this.router.navigate(['/login'])
   }
