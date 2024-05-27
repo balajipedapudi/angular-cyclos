@@ -70,8 +70,7 @@
 
 .active{
   border-bottom: 3px solid !important;
-  color:rgb(240, 239, 243) !important;
-  /* color:rgba(110, 103, 173, 1) !important; */
+  color:white !important;
   transition: border-bottom 0.3s ease-in-out;
 }
 
