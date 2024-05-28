@@ -24,6 +24,8 @@ export class BankingComponent {
 options:any=[];
    isShowFiltersDebit=false;
    isShowFiltersOrg=false;
+   isShowDebitAcc=true;
+   isShowOrgAcc=false;
   constructor(private formBuilder:FormBuilder,private datePipe:DatePipe){
     // this.currentDate = this.datePipe.transform(new Date(), 'MM-dd-yyyy');
     const today = new Date();

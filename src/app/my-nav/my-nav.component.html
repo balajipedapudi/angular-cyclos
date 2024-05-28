@@ -8,7 +8,7 @@
       <a mat-list-item routerLink="inventory">Users</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content style="background-color: #eff2ff6e;">
     <mat-toolbar color="primary">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
@@ -44,8 +44,10 @@
       </div>
 
     </mat-toolbar>
-    <ng-content style="height: 90vh; display: block;"></ng-content>
+    <ng-content style="height: 90vh; display: block; background-color: #eff2ff6e;"></ng-content>
     <!-- Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>
-<app-footer></app-footer>
+<app-footer *ngIf="isShow"></app-footer>
+
+

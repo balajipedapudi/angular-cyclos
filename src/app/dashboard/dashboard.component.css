@@ -179,18 +179,27 @@
 }
 
 .feature{
- background-color:rgba(245, 243, 243, 1);
- padding: 20px;
+ /* background-color:rgba(245, 243, 243, 1); */
+ padding: 10px;
  border-radius: 15px;
- min-height: 175px;
-
+ min-height: 150px;
+ cursor: pointer;
 }
+/* .feature:hover{
+  cursor: pointer;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+} */
+.feature:hover .icon-bg {
+  background-color:rgba(245, 243, 243, 1);
+  
+}
+
 
 .icon-bg{
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  background-color: rgba(217, 217, 217, 1);
+  background-color: rgb(220 239 249);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -202,9 +211,29 @@ margin-top: 10px;
 }
 
 .icon-bg mat-icon{
-  color: #3B3B5B;
+  color: #4490d3;
 }
 .graph-card{
   border-radius: 10px;
-  background-color: rgba(245, 243, 243, 1);
+  background-color: white;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.icons-section{
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.add-section{
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  height: 100%;
+}
+@media (min-width: 992px) {
+  .col-lg-1_5 {
+    flex: 0 0 12.5%;
+    max-width: 12.5%;
+  }
 }

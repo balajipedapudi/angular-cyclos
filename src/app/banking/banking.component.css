@@ -46,3 +46,16 @@ max-height:36px;
     min-width: 9rem !important;
     transform: translate(-3px, 38px) !important;
   }
+  .tab-section{
+    background: rgba(255, 255, 255, 0.99);     
+    /* background: white;      */
+    /* background: #efeded;      */
+        
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);    
+    padding:18px;    
+    border-radius: 15px;
+    height: 100%;
+  }
+  .tab-section-list-style li{
+    list-style-type: none;
+  }

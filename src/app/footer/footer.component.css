@@ -1,9 +1,9 @@
 .list-style li{
  list-style-type: none;
- color:white;
+ color:black;
  padding-right: 10px;
 }
 .footer-bg{
-    background-color: black;
+    background-color: white;
     padding:20px 0px;
 }

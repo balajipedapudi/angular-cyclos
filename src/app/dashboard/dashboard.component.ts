@@ -19,6 +19,7 @@ export class DashboardComponent {
   chartCategoriesOrgX: string[] = [];
   debitAccBalance="";
   organizationAccBalance="";
+  htmlContent: string = '';
   constructor(private http:HttpClient,private dashboardServices:DashboardService){
    
   }
@@ -26,15 +27,38 @@ export class DashboardComponent {
      this.dashboardServices.homePage(this.cookie,this.token).subscribe({
       next: (response:any) => {
         console.log('API Response:', response);
+        this.htmlContent = response.content.content['@value'];
+        // const icons = [
+        //   'account_circle','checkbook','payments','payments', 'person_search','account_balance_wallet','person_check',
+        //   'contacts_product','person_add','travel_explore','person','key','settings','notifications_active','contrast'
+        // ];
 
-        const icons = [
-          'account_circle','checkbook','payments','payments', 'person_search','account_balance_wallet','person_check',
-          'contacts_product','person_add','travel_explore','person','key','settings','notifications_active','contrast'
-        ];
+        // this.quickAccessWithIcons = response.quickAccess.map((item:any, index:any) => ({
+        //   ...item,
+        //   icon: icons[index] || 'defaultIcon'
+        // }));
+        const iconsMapping:any = {
+          account: ['account_circle','Account'],
+          transfersOverview: ['checkbook','Transfers Overview'],
+          payUser: ['payments','Pay User'],
+          paySystem: ['payments','Pay System'],
+          searchUsers: ['person_search','Search Users'],
+          balancesOverview: ['account_balance_wallet','Balances Overview'],
+          pendingUsers: ['person_check','Pending Users'],
+          contacts: ['contacts_product','Contacts'],
+          registerUser: ['person_add','Register User'],
+          searchAds: ['travel_explore','Search Ads'],
+          editProfile: ['person','Edit Profile'],
+          passwords: ['key','Passwords'],
+          settings: ['settings','Settings'],
+          notifications: ['notifications_active','Notifications'],
+          switchTheme: ['contrast','Switch Theme']
+        };
 
-        this.quickAccessWithIcons = response.quickAccess.map((item:any, index:any) => ({
+        this.quickAccessWithIcons = response.quickAccess.map((item:any)=> ({
           ...item,
-          icon: icons[index] || 'defaultIcon'
+          icon: iconsMapping[item.type][0] || 'defaultIcon',
+          text:iconsMapping[item.type][1]
         }));
 
         console.log('new', this.quickAccessWithIcons);
@@ -91,17 +115,19 @@ export class DashboardComponent {
         enabled: false
       },
       stroke: {
-        curve: 'straight'
+        curve: 'straight',
+        width:3
       },
       title: {
         text: '',
         align: 'left'
       },
       grid: {
-        row: {
-          colors: ['#f3f3f3', 'transparent'],
-          opacity: 0.5
-        },
+        show:false,
+        // row: {
+        //   colors: ['#f3f3f3', 'transparent'],
+        //   opacity: 0.5
+        // },
       },
       xaxis: {
         categories: data2,
@@ -120,7 +146,7 @@ export class DashboardComponent {
    
     var options1 = {
       series: [{
-        name: "Desktops",
+        name: "Amount",
         data: data
       }],
       chart: {
@@ -134,24 +160,27 @@ export class DashboardComponent {
         enabled: false
       },
       stroke: {
-        curve: 'straight'
+        curve: 'straight',
+        width:3
       },
       title: {
         text: '',
         align: 'left'
       },
       grid: {
-        row: {
-          colors: ['#f3f3f3', 'transparent'],
-          opacity: 0.5
-        },
+        show:false,
+        // row: {
+        //   colors: ['#f3f3f3', 'transparent'],
+        //   opacity: 0.5
+        // },
       },
       xaxis: {
         categories: data2,
       },
       yaxis: {
         tickAmount: 5  
-      }
+      },
+      
     };
 
 
