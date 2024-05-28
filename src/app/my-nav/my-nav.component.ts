@@ -49,7 +49,7 @@ constructor(private router:Router){
   public displayPic = sessionStorage.getItem('profilePic');
   public displayName=sessionStorage.getItem('userName');
   
-  logout(){
+   logout(){
      localStorage.removeItem('token');
      localStorage.removeItem('cookie');
     

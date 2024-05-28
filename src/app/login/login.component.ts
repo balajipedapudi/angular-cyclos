@@ -40,6 +40,7 @@ getUserAgentId(): string {
   
   return userAgentId;
 }
+
 signIn(){
   console.log(this.loginDetails.value.username);
   let userAgent=this.getUserAgentId();
@@ -68,9 +69,6 @@ this.loginServices.logIn(userAgent, authorizationHeader).subscribe((response:any
   this.router.navigate(['/dashboard'])
 });
 
-
-
-  
 }
 redirectToDashboard(){
 

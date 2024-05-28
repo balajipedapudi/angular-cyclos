@@ -3,14 +3,18 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a *ngIf="isShow" mat-list-item routerLink="dashboard">Dashboard</a>
+      <a mat-list-item routerLink="dashboard">Dashboard</a>
       <a mat-list-item routerLink="banking">Banking</a>
       <a mat-list-item routerLink="inventory">Users</a>
+      <a mat-list-item class="nav-link-inserted" title="Help Icon" (click)="logout();drawer.toggle()" >
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="logout"></mat-icon>
+      </a>
+
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content style="background-color: #eff2ff6e;">
-    <mat-toolbar color="primary">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+    <mat-toolbar color="primary" *ngIf="isShow">
+      <button type="button" style="color: black;" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
@@ -22,7 +26,7 @@
       <span class="spacer"></span>
 
 
-      <div class="nav-link" *ngIf="isShow && !(isHandset$ | async)">
+      <div class="nav-link" *ngIf="!(isHandset$ | async)">
         <a routerLink="dashboard" routerLinkActive="active" class="nav-link-inserted">Dashboard</a>
         <a routerLink="banking" routerLinkActive="active" class="nav-link-inserted">Banking</a>
         <a routerLink="inventory" routerLinkActive="active" class="nav-link-inserted">Users</a>

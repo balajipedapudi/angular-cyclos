@@ -26,16 +26,6 @@ export class LoginService {
     //return this.http.get(url);
   }
 
-  homePage(cookie:any,token:any){
-    console.log(cookie,token);
-    
-    const url="http://10.175.1.21:18080/api/gateway/api/frontend/home";
-    const body:any={
-      "screenSize":"desktop",
-      "Cookie":cookie,
-      "Token":token
-  }
-  return this.http.post(url,body)
-  }
+  
 
 }
