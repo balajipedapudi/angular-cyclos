@@ -26,6 +26,19 @@ options:any=[];
    isShowFiltersOrg=false;
    isShowDebitAcc=true;
    isShowOrgAcc=false;
+    menuItem= [
+        {
+          method: () => this.showDebitAccSection(),
+            name: "Debit Account",
+            icon:''
+        }
+    ,
+    {
+        method: ()=>this.showOrgAccSection(),
+        name:"Organization Account",
+        icon:''
+    }]
+
   constructor(private formBuilder:FormBuilder,private datePipe:DatePipe){
     // this.currentDate = this.datePipe.transform(new Date(), 'MM-dd-yyyy');
     const today = new Date();
@@ -41,6 +54,14 @@ options:any=[];
     })
   ngOnInit(){
     this.getDetails()
+  }
+  showDebitAccSection(){
+    this.isShowDebitAcc=true;
+    this.isShowOrgAcc=false;
+  }
+  showOrgAccSection(){
+    this.isShowDebitAcc=false;
+    this.isShowOrgAcc=true;
   }
   getDetails(){
     fetch("http://localhost:3000/getDetails")
