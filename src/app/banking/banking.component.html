@@ -7,25 +7,30 @@
                     <div class="link_text" (click)="item.method()">{{item.name}}</div>
                     
                 </div>
-                <!-- <ul class="tab-section-list-style">
-                    <li (click)="showDebitAccSection()">Debit Account</li>
-                    <li (click)="showOrgAccSection()">Organization Account</li>
-                </ul> -->
+                
             </div>
         </div>
         <div class="col-sm-12 col-md-8">
             
-            <!-- <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-                <mat-tab label="Debit Account"> -->
+         
                     <div *ngIf="isShowDebitAcc">
                         <form [formGroup]="optionDetails">
                             <div class="fields-card">
                                 <div class="col-sm-12 d-flex justify-content-between">
                                     <h1>Debit Account</h1>
-                                    <div>
+                                    <div class="d-flex">
                                         <button *ngIf="isShowFiltersDebit" mat-button (click)="hideFiltersDebit()"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>Hide Filters</button>
                                         <button *ngIf="!isShowFiltersDebit" mat-button (click)="showFiltersDebit()"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>Show Filters</button>
-                                        <button mat-button><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="download"></mat-icon>Download</button>
+                                        <!-- <button mat-button><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="download"></mat-icon>Download</button> -->
+                                        
+                                <div class="dropdown">
+                                    <button mat-button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="download"></mat-icon>Download</button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                          <li><a class="dropdown-item" href="#">CSV</a></li>
+                                          <li><a class="dropdown-item" href="#">EXCEL</a></li>
+                                          <li><a class="dropdown-item" href="#">PDF</a></li>
+                                        </ul>
+                                      </div>
                                     </div>
                                 </div><hr>
                                 <div *ngIf="isShowFiltersDebit" class="col-sm-12 d-flex" style="flex-wrap: wrap;">
@@ -174,8 +179,7 @@
                       
                 </div>
                 </div>
-                <!-- </mat-tab>
-                <mat-tab label="Organization Account"> -->
+             
                     <div *ngIf="isShowOrgAcc">
                     <form [formGroup]="optionDetails" >
                     <div class="fields-card">
@@ -333,8 +337,7 @@
                       
                 </div>
                 </div>
-                <!-- </mat-tab>
-              </mat-tab-group> -->
+             
             
         </div>
     </div>
