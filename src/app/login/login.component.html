@@ -1,20 +1,42 @@
 <div class="container" style="height: 100vh;">
 <div class="row" style="height: 100%;">
     <div class="col-sm-12 d-flex justify-content-center align-items-center">
-        <div class="col-sm-12 col-md-5 signin-card d-flex flex-column justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-4 signin-card d-flex flex-column justify-content-center align-items-center">
+            <div class="img-pareza">
+            <img class="img-pareza-src" src="./../../assets/images/Logo-New-High.png" alt="Pareza" width="100%"height="100%">
+        </div>
             <h2>Sign in with your Account</h2>
-            <h4>Enter username and password to signin</h4>
         <form [formGroup]="loginDetails" style="width:80%" class="d-flex flex-column align-items-center">
 
-            <div className='form-group' style="width:100%">
-                <!-- <label htmlFor="username">Username</label><br /> -->
+            <!-- <div className='form-group' style="width:100%">
                 <input id="username" placeholder="Username" formControlName="username" class="form-control" width="100%" />
-            </div>
-            <div className='form-group' style="margin-top: 15px;width:100%">
-                <!-- <label htmlFor="password">Password</label><br /> -->
-                <input id="password" placeholder="Password" formControlName="password" class="form-control" width="100%" />
-            </div>
-            <button class="btn btn-dark" (click)="signIn()" style="width:100%; margin-top:15px;">Sign In</button>
+            </div> -->
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1" style="background-color: white;">
+                    <mat-icon aria-hidden="false" class="icon-color" aria-label="Example home icon" fontIcon="person"></mat-icon>
+                </span>
+                <input type="text" id="username" class="form-control" style="border-left:none;" placeholder="Username" formControlName="username" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+            <!-- <div className='form-group' style="margin-top: 15px;width:100%">
+                <input id="password" type="password" placeholder="Password" formControlName="password" class="form-control" width="100%" />
+
+            </div> -->
+          
+                <div class="form-group" style="margin-top: 15px; width: 100%;">
+                  <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1" style="background-color: white;">
+                        <mat-icon aria-hidden="false" class="icon-color" aria-label="Example home icon" fontIcon="key"></mat-icon>
+                    </span>
+                    <input id="password" [type]="passwordFieldType" style="border-left:none;" placeholder="Password" formControlName="password" class="form-control" />
+                    <span class="input-group-text" (click)="togglePasswordVisibility()" style="cursor: pointer; background-color: white;">
+                    
+                      <mat-icon aria-hidden="false" class="icon-color" aria-label="Example home icon" fontIcon={{passwordFieldIcon}}></mat-icon>
+                    </span>
+                  </div>
+                </div>
+                
+            <a href="" style="margin-top:10px;text-align: end;text-decoration: none;">Forgot Password</a> 
+            <button class="btn btn-dark" (click)="signIn()" style="width:100%; margin-top:15px; border:none; background-color: rgba(15, 104, 178, 1);">Sign In</button>
             <!-- <button mat-button color="primary" (click)="signIn()" style="width:100%">submit</button> -->
             <h4 class="text-line">register with us</h4>
             <button class="btn btn-secondary" style="width:100%;background-color: #e5e3e3; color:black;">not a user yet? Register with us</button>

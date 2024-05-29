@@ -1,4 +1,9 @@
-<div class="container">
+<div *ngIf="isLoading" style="height:90vh;" class="d-flex justify-content-center align-items-center">
+    
+  <app-loader></app-loader>
+</div>
+
+<div class="container" *ngIf="!isLoading">
    
     <div class="row mt-2 p-3 row-gap-3 gy-3 ">
       <div class="col-sm-12 col-md-12 d-flex flex-column  icons-section">

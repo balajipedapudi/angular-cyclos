@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
 import { LoginService } from '../services/login.service';
 import { DashboardService } from '../services/dashboard.service';
@@ -20,23 +20,20 @@ export class DashboardComponent {
   debitAccBalance="";
   organizationAccBalance="";
   htmlContent: string = '';
-  constructor(private http:HttpClient,private dashboardServices:DashboardService){
+  isLoading:any;
+  constructor(private http:HttpClient,private dashboardServices:DashboardService, private cdr: ChangeDetectorRef){
    
   }
   ngOnInit() {
+     this.isLoading=true;
      this.dashboardServices.homePage(this.cookie,this.token).subscribe({
       next: (response:any) => {
         console.log('API Response:', response);
-        this.htmlContent = response.content.content['@value'];
-        // const icons = [
-        //   'account_circle','checkbook','payments','payments', 'person_search','account_balance_wallet','person_check',
-        //   'contacts_product','person_add','travel_explore','person','key','settings','notifications_active','contrast'
-        // ];
-
-        // this.quickAccessWithIcons = response.quickAccess.map((item:any, index:any) => ({
-        //   ...item,
-        //   icon: icons[index] || 'defaultIcon'
-        // }));
+       
+        this.htmlContent = response.content.content?response.content?.content['@value']:'';
+       
+          
+        
         const iconsMapping:any = {
           account: ['account_circle','Account'],
           transfersOverview: ['checkbook','Transfers Overview'],
@@ -55,7 +52,7 @@ export class DashboardComponent {
           switchTheme: ['contrast','Switch Theme']
         };
 
-        this.quickAccessWithIcons = response.quickAccess.map((item:any)=> ({
+        this.quickAccessWithIcons = response.quickAccess?.map((item:any)=> ({
           ...item,
           icon: iconsMapping[item.type][0] || 'defaultIcon',
           text:iconsMapping[item.type][1]
@@ -63,15 +60,19 @@ export class DashboardComponent {
 
         console.log('new', this.quickAccessWithIcons);
 
-        this.extractChartDataDebit(response.accounts[0].balanceHistory);
-        this.debitAccBalance=response.accounts[0].balance;
-        this.extractChartDataOrg(response.accounts[1].balanceHistory);
-        this.organizationAccBalance=response.accounts[1].balance;
+        this.extractChartDataDebit(response.accounts[0]?.balanceHistory);
+        this.debitAccBalance=response.accounts[0]?.balance;
+        this.extractChartDataOrg(response.accounts[1]?.balanceHistory);
+        this.organizationAccBalance=response.accounts[1]?.balance;
+        this.isLoading=false;
+        this.cdr.detectChanges();
         this.initializeChart(this.chartDataDebitY,this.chartCategoriesDebitX);
         this.initializeChartOrg(this.chartDataOrgY,this.chartCategoriesOrgX);
+        
       },
       error: err => {
         console.error('API call error:', err);
+        this.isLoading=false;
       }
     });
     
@@ -101,7 +102,7 @@ export class DashboardComponent {
   initializeChart(data: number[],data2:any) {
     var options = {
       series: [{
-        name: "Desktops",
+        name: "Amount",
         data: data
       }],
       chart: {
@@ -111,6 +112,7 @@ export class DashboardComponent {
           enabled: false
         }
       },
+      colors: ['#FFA500'],
       dataLabels: {
         enabled: false
       },
@@ -156,6 +158,7 @@ export class DashboardComponent {
           enabled: false
         }
       },
+      colors: ['#FFA500'],
       dataLabels: {
         enabled: false
       },

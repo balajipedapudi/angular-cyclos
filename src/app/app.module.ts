@@ -23,6 +23,11 @@ import {MatTableModule} from '@angular/material/table';
 import {MatBadgeModule} from '@angular/material/badge';
 import { FooterComponent } from './footer/footer.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { LoaderComponent } from './loader/loader.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -33,6 +38,7 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     BankingComponent,
     FooterComponent,
     SafeHtmlPipe,
+    LoaderComponent,
   
   ],
   imports: [
@@ -52,7 +58,10 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     MatSelectModule,
     MatTabsModule,
     MatTableModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    ToastrModule.forRoot(),
     
   ],
   providers: [],

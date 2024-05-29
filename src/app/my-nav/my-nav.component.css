@@ -50,7 +50,7 @@
   gap: 8px;
   flex-direction: row;
   align-items: center;
-  height: calc(100% - 3px);
+  height: 30px;
   /* margin: 0 10px; */
   color: black;
   text-decoration: none;
@@ -72,9 +72,9 @@
 }
 
 .active{
-  /* border-bottom: 3px solid !important; */
+  border-bottom: 3px solid darkgoldenrod !important;
   color:darkgoldenrod !important;
-  transition: border-bottom 0.3s ease-in-out;
+  transition: border-bottom 0.1s ease-in-out;
 }
 
 .title{
@@ -82,8 +82,8 @@
   font-weight: 600 !important;
 }
 
-.img-tink{
-  height: 30px;
+.img-pareza{
+  height: 50px;
 }
 
 /* .title-anchor{
