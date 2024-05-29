@@ -20,8 +20,8 @@
   top: 0;
   z-index: 5;
   height: 3.6rem;
-  background-color: white;
-  padding: 40px;
+  background-color: rgba(15, 104, 178, 1);
+  padding: 30px;
 }
 
 .spacer{
@@ -29,7 +29,7 @@
 }
 
 .nav-link button{
-  color: black;
+  color: white;
 }
 .nav-link{
   display: flex;
@@ -52,7 +52,7 @@
   align-items: center;
   height: 30px;
   /* margin: 0 10px; */
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 14px;
   font-weight: 400;
@@ -63,7 +63,7 @@
   -webkit-box-orient: horizontal;
 } 
 .nav-link-inserted:hover{
-  color: darkgoldenrod;
+  color: white;
 }
 
 .mat-toolbar span{
@@ -72,8 +72,8 @@
 }
 
 .active{
-  border-bottom: 3px solid darkgoldenrod !important;
-  color:darkgoldenrod !important;
+  border-bottom: 3px solid white !important;
+  color:white !important;
   transition: border-bottom 0.1s ease-in-out;
 }
 
