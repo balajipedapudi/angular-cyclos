@@ -28,6 +28,9 @@ import { LoaderComponent } from './loader/loader.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { ToastrModule } from 'ngx-toastr';
+import { DebitComponent } from './banking/debit/debit.component';
+import { OrganizationComponent } from './banking/organization/organization.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,8 @@ import { ToastrModule } from 'ngx-toastr';
     FooterComponent,
     SafeHtmlPipe,
     LoaderComponent,
+    DebitComponent,
+    OrganizationComponent,
   
   ],
   imports: [
@@ -62,6 +67,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatTooltipModule,
     MatProgressSpinnerModule,
     ToastrModule.forRoot(),
+    MatPaginatorModule
     
   ],
   providers: [],

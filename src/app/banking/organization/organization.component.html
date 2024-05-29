@@ -1,0 +1,183 @@
+<form [formGroup]="optionDetails">
+    <div class="fields-card">
+        <div class="col-sm-12 d-flex justify-content-between">
+            <h1>Organization Account</h1>
+            <div>
+                <button *ngIf="isShowFiltersOrg" mat-button (click)="hideFiltersOrg()"><mat-icon aria-hidden="false"
+                        aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>Hide Filters</button>
+                <button *ngIf="!isShowFiltersOrg" mat-button (click)="showFiltersOrg()"><mat-icon aria-hidden="false"
+                        aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>Show Filters</button>
+                <button mat-button><mat-icon aria-hidden="false" aria-label="Example home icon"
+                        fontIcon="download"></mat-icon>Download</button>
+            </div>
+        </div>
+        <hr>
+        <div *ngIf="isShowFiltersOrg" class="col-sm-12 d-flex" style="flex-wrap: wrap;">
+            <div class="col-sm-4 p-2">
+                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                    <mat-label>Period</mat-label>
+                    <mat-select formControlName="options">
+                        <mat-option *ngFor="let item of options" [value]="item.id">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4 p-2">
+                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                    <mat-label>Filter</mat-label>
+                    <mat-select>
+                        <mat-option>
+
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4 p-2">
+                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                    <mat-label>From Amount</mat-label>
+                    <input matInput type="number">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4 p-2">
+                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                    <mat-label>To Amount</mat-label>
+                    <input matInput type="number">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4 p-2">
+                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                    <mat-label>Direction</mat-label>
+                    <mat-select>
+                        <mat-option>
+
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4 p-2">
+                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                    <mat-label>Groups</mat-label>
+                    <mat-select>
+                        <mat-option>
+
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4 p-2">
+                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                    <mat-label>Channel</mat-label>
+                    <mat-select>
+                        <mat-option>
+
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4 p-2">
+                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                    <mat-label>Order By</mat-label>
+                    <mat-select>
+                        <mat-option>
+
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4 p-2">
+                <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
+                    <mat-label>Period</mat-label>
+                    <mat-select>
+                        <mat-option>
+
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div *ngIf="isShowFiltersOrg" class="row">
+            <hr>
+            <div class="col-sm-12 col-md-6 d-flex">
+                <div class="col-sm-6">
+                    <h3>Balance on {{oneYearBeforeDate}}</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h3>21000 $</h3>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 d-flex">
+                <div class="col-sm-6">
+                    <h3>Balance on {{currentDate}}</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h3>21000 $</h3>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 d-flex">
+                <div class="col-sm-6">
+                    <h3>Total Received</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h3>0 $</h3>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 d-flex">
+                <div class="col-sm-6">
+                    <h3>Total Paid</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h3>21000 $</h3>
+                </div>
+            </div>
+            <div class="col-sm-12 d-flex">
+                <div class="col-sm-3">
+                    <h3>Net Income</h3>
+                </div>
+                <div class="col-sm-3">
+                    <h3>21000 $</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!isShowFiltersOrg">
+            <div class="col-sm-12 d-flex">
+                <div class="col-sm-3">
+                    <h3>Balance</h3>
+                </div>
+                <div class="col-sm-3">
+                    <h3>21000 $</h3>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</form>
+<div class="mt-4">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">{{element.position}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>From/To</th>
+            <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row (click)="clickedRows.add(row)" [class.demo-row-is-clicked]="clickedRows.has(row)"
+            *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</div>

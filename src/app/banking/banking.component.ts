@@ -28,16 +28,15 @@ options:any=[];
    isShowOrgAcc=false;
     menuItem= [
         {
-          method: () => this.showDebitAccSection(),
+            routerLink:'debit',
             name: "Debit Account",
             icon:''
-        }
-    ,
-    {
-        method: ()=>this.showOrgAccSection(),
-        name:"Organization Account",
-        icon:''
-    }]
+        },
+        {
+            routerLink:'organization',
+            name:"Organization Account",
+            icon:''
+        }]
 
   constructor(private formBuilder:FormBuilder,private datePipe:DatePipe){
     // this.currentDate = this.datePipe.transform(new Date(), 'MM-dd-yyyy');
@@ -79,12 +78,7 @@ options:any=[];
   hideFiltersDebit(){
     this.isShowFiltersDebit=false;
   }
-  showFiltersOrg(){
-    this.isShowFiltersOrg=true;
-  }
-  hideFiltersOrg(){
-    this.isShowFiltersOrg=false;
-  }
+ 
   displayedColumns: string[] = ['position', 'name', 'weight'];
   dataSource = ELEMENT_DATA;
   clickedRows = new Set<PeriodicElement>();

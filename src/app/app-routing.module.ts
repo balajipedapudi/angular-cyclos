@@ -6,9 +6,16 @@ import { BankingComponent } from './banking/banking.component';
 import { authGuard } from './auth.guard';
 import { loginGuard } from './login.guard';
 
+import { DebitComponent } from './banking/debit/debit.component';
+import { OrganizationComponent } from './banking/organization/organization.component';
+
 const routes: Routes = [
   {path:'dashboard', component:DashboardComponent, canActivate:[authGuard]},
-  {path:'banking', component:BankingComponent,canActivate:[authGuard]},
+  {path:'banking', component:BankingComponent,canActivate:[authGuard], children:[
+    { path: '', redirectTo: 'debit', pathMatch: 'full' },
+    { path: 'debit', component: DebitComponent },
+    { path: 'organization', component: OrganizationComponent }
+  ]},
   {path:'login',component:LoginComponent,canActivate:[loginGuard]},
   {path:'',redirectTo:'/login', pathMatch:'full'}
 ];
