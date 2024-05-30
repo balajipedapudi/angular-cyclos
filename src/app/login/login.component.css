@@ -29,16 +29,16 @@
     content: "";
     position: absolute;
     top: 50%;
-    width: 100px; /* Adjust the width as needed */
+    width: 65px; /* Adjust the width as needed */
     border-top: 1px solid #e5e3e3; /* Adjust the color and style as needed */
 }
 
 .text-line:before {
-    left: -110px; /* Adjust position based on the width */
+    left: -85px; /* Adjust position based on the width */
 }
 
 .text-line:after {
-    right: -110px; /* Adjust position based on the width */
+    right: -85px; /* Adjust position based on the width */
 }
 .img-pareza{
     height: 130px;

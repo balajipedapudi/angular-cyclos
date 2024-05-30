@@ -31,6 +31,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DebitComponent } from './banking/debit/debit.component';
 import { OrganizationComponent } from './banking/organization/organization.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { TransfersComponent } from './banking/transfers/transfers.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     LoaderComponent,
     DebitComponent,
     OrganizationComponent,
+    TransfersComponent,
   
   ],
   imports: [
