@@ -8,7 +8,9 @@
     <div class="row mt-2 p-3 row-gap-3 gy-3 ">
       <div class="col-sm-12 col-md-12 d-flex flex-column  icons-section">
         <div style="padding-left: 30px;">
-          <h2>Quick Access</h2><hr>
+          <!-- <h2>Quick Access</h2> -->
+          <h2 style="font-size: 18px; font-weight: 400;">Quick Access</h2>
+          <hr>
         </div>
         <div class="row">
         <div *ngFor="let item of quickAccessWithIcons" class="col-sm-12 col-md-2 col-lg-1_5">
@@ -27,12 +29,12 @@
      
 
     </div>
-    <div class="row">
+    <div class="row mt-1">
 <div class="col-sm-12 col-md-6 p-3">
   <div class="p-2 graph-card">
     <div class="d-flex justify-content-between">
-      <h2 class="col-sm-7">Debit Account</h2>
-      <h4 class="col-sm-5 d-flex justify-content-end" style="color:rgba(205, 95, 80, 1)">{{debitAccBalance}}</h4>
+      <a routerLink="/banking" routerLinkActive="active" style="font-size:18px;text-decoration: none;cursor: pointer;" class="col-sm-7">Debit Account</a>
+      <h4 class="col-sm-5 d-flex justify-content-end" [ngClass]="getBalanceClass(debitAccBalance)">{{debitAccBalance}}</h4>
     </div>
     
   <div id="chart" ></div>
@@ -41,17 +43,19 @@
 <div class="col-sm-12 col-md-6 p-3">
   <div class="p-2 graph-card">
     <div class="d-flex justify-content-between">
-      <h2 class="col-sm-7">Organization Account</h2>
-      <h4 class="col-sm-5 d-flex justify-content-end" style="color:rgba(67, 162, 105, 1)">{{organizationAccBalance}}</h4>
+      <a routerLink="/banking/organization" routerLinkActive="active" style="font-size:18px;text-decoration: none;cursor: pointer;" class="col-sm-7">Organization Account</a>
+      <h4 class="col-sm-5 d-flex justify-content-end" [ngClass]="getBalanceClass(organizationAccBalance)">{{organizationAccBalance}}</h4>
     </div>
   <div id="chart1" ></div>
 </div>
 </div>
     </div>
-    <div class="row mb-5">
+    <div class="row mt-3 mb-5">
       <div class="col-sm-12 col-md-6">
 <div class="add-section">
-  <h2>Upcoming Events</h2><hr>
+  <!-- <h2>Upcoming Events</h2> -->
+  <h2 style="font-size: 18px; font-weight: 400;">Upcoming Events</h2>
+  <hr>
   <div [innerHTML]="htmlContent | safeHtml"></div>
 </div>
       </div>

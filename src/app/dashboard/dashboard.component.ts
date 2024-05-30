@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
 import { LoginService } from '../services/login.service';
 import { DashboardService } from '../services/dashboard.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,7 +21,7 @@ export class DashboardComponent {
   organizationAccBalance="";
   htmlContent: string = '';
   isLoading:any;
-  constructor(private http:HttpClient,private dashboardServices:DashboardService, private cdr: ChangeDetectorRef){
+  constructor(private http:HttpClient,private dashboardServices:DashboardService, private cdr: ChangeDetectorRef,private toastr:ToastrService){
    
   }
   ngOnInit() {
@@ -73,6 +73,7 @@ export class DashboardComponent {
       error: err => {
         console.error('API call error:', err);
         this.isLoading=false;
+        this.toastr.error('Network Error');
       }
     });
     
@@ -190,7 +191,10 @@ export class DashboardComponent {
     var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
     chart1.render();
   }
+  getBalanceClass(value:any): string {
 
+    return +value < 0 ? 'negative-balance' : 'positive-balance';
+  }
   
 
 }

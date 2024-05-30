@@ -237,3 +237,10 @@ margin-top: 10px;
     max-width: 12.5%;
   }
 }
+.negative-balance {
+  color: #e11a1ab5;
+}
+
+.positive-balance {
+  color: rgb(72, 183, 72);
+}
