@@ -63,6 +63,9 @@
   -webkit-box-align: center;
   -webkit-box-direction: normal;
   -webkit-box-orient: horizontal;
+} 
+.nav-link-inserted:hover{
+  color: white;
 }
 .nav-link-inserted:hover{
   color: white;
