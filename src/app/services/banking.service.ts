@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { retry } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -120,5 +120,44 @@ printTransfersPdf(id:any){
   }
   return this.http.post(url,body)
 }
+
+
+  findUsers(keyword:any){
+    
+    const url = "http://10.175.1.21:18080/api/gateway/api/users";
+
+    const body={
+      "Cookie": localStorage.getItem('cookie'),
+      "Token": localStorage.getItem('token'),
+      "keywords":keyword
+    }
+    return this.http.post(url, body);
+  }
+
+  downloadReport(format:any, accountType:string):any{
+    const url = "http://10.175.1.21:18080/api/gateway/accounts/export";
+    const body ={
+      "accountType":accountType,
+      "Cookie": localStorage.getItem('cookie'),
+      "Token": localStorage.getItem('token'),
+       "format":format,
+      "orderBy":"dateDesc",
+      "page":"0",
+      "pageSize":"40",
+      "datePeriod":"2024-04-27T00:00:00.000+01:00",
+      "lowAmountRange":1,
+      "highAmountRange":20000,
+      "SystemFilter":"",
+      "userFilter":"",
+      "direction": "",
+      "groups": "",
+      "channels":""
+   
+  }
+
+    const options = {responseType:'blob' as 'json'};
+    return this.http.post(url, body, options);
+  }
+
 
 }

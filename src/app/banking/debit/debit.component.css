@@ -17,4 +17,7 @@
   .positive-balance {
     color: rgb(72, 183, 72);
   }
- 
+
+  .example-full-width{
+    width: 100%;
+  }

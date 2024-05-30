@@ -6,6 +6,7 @@ import { BankingService } from 'src/app/services/banking.service';
 import { MatPaginator,MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, tap } from 'rxjs';
 
 interface Type {
   id: string;
@@ -103,10 +104,54 @@ export class DebitComponent implements OnInit, AfterViewInit {
     return this.datePipe.transform(date, 'dd-MM-yyyy');
   }
 
+  downloadFormat(format:any){
+    
+    this.bankingService.downloadReport(format,"debit").subscribe({
+      next:(res:any)=>{
+        console.log(res);
+
+        if(format=="pdf"){
+        const blob = new Blob([res], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+  
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'report.pdf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+  
+        console.log('PDF downloaded');
+        }else if(format=="csv") {
+          const blob = new Blob([res], { type: 'text/csv' });
+
+          // Create a link element
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = `report.${format}`;
+  
+          // Append the link to the body
+          document.body.appendChild(link);
+  
+          // Programmatically click the link to trigger the download
+          link.click();
+  
+          // Clean up and remove the link
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(link.href);
+  
+          console.log('CSV downloaded');
+        }
+      }
+    })
+  }
+
   preselectedPeriods:any =[];
   transferFilters:any=[];
   groups:any=[];
   channels:any=[];
+  // exportFormats:any=[];
   directions:any=[
     {
       id:1,
@@ -145,42 +190,51 @@ export class DebitComponent implements OnInit, AfterViewInit {
     groups:[null],
     channel:[null],
     direction:[null],
-    orderBy:[null]
+    orderBy:[null],
+    user:[null] 
   })
+  // users: string[] = ['One', 'Two', 'Three'];
 
+
+  users:any=[];
   ngOnInit(): void {
-     this.isLoading=true;
-    this.bankingService.getDropdownForDebitFilter().subscribe({
-      next:(res:any)=>{
-       
-        console.log('filterDropdownData:', res);
-        this.filterDropdownData=res;
-        this.channels=res.channels;
-        this.preselectedPeriods=res.preselectedPeriods;
-        this.transferFilters=res.transferFilters;
-        this.groups=res.groups;
-        this.isLoading=false;
-      }
-    })
-
-    this.bankingService.getDebitTableData().subscribe({
-
-      next:(res:any)=>{
-        console.log('tabledata:', res);
-        this.dataSource= new MatTableDataSource<Payment>(res);
+    // this.isLoading = true; // Start spinner
+  
+    this.bankingService.getDropdownForDebitFilter().pipe(
+      tap((res: any) => {
+        this.filterDropdownData = res;
+        this.channels = res.channels;
+        this.preselectedPeriods = res.preselectedPeriods;
+        this.transferFilters = res.transferFilters;
+        this.groups = res.groups;
+      }),
+      switchMap(() => this.bankingService.getDebitTableData()),
+      tap((res: any) => {
+        this.dataSource = new MatTableDataSource<Payment>(res);
         this.dataSource.paginator = this.paginator;
-        
+        this.isLoading = false;
+      }),
+      switchMap(() => this.bankingService.getDebitAccountInfo()),
+      tap((res: any) => {
+        this.accountInfo = res.status;
+        //this.isLoading = false; // Stop spinner
+      })
+    ).subscribe({
+      error: (err) => {
+        console.error('An error occurred:', err);
+        this.isLoading = false; // Stop spinner in case of error
       }
+    });
+    this.optionDetails.get('user')?.valueChanges.subscribe(value=>{
 
-    })
-
-    this.bankingService.getDebitAccountInfo().subscribe({
-      next:(res:any)=>{
-        console.log('accountInfo:',res.status);
-        this.accountInfo= res.status;
-      }
-    })
+      this.bankingService.findUsers(value).subscribe({
+        next:(res)=>{
+          this.users=res
+        }
+      })
+     })
   }
+  
 
  getBalanceClass(value: number): string {
     return value < 0 ? 'negative-balance' : 'positive-balance';

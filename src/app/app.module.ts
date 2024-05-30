@@ -32,6 +32,7 @@ import { DebitComponent } from './banking/debit/debit.component';
 import { OrganizationComponent } from './banking/organization/organization.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { TransfersComponent } from './banking/transfers/transfers.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { TransfersComponent } from './banking/transfers/transfers.component';
     MatTooltipModule,
     MatProgressSpinnerModule,
     ToastrModule.forRoot(),
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatAutocompleteModule
     
   ],
   providers: [],
