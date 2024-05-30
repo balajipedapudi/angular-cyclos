@@ -111,6 +111,14 @@ export class BankingService {
 
     return this.http.post(url,body);
   }
-
+printTransfersPdf(id:any){
+  const url="http://10.175.1.21:18080/api/gateway/api/transfer/exportPdf";
+  const body={
+    "Cookie": localStorage.getItem('cookie'),
+      "Token": localStorage.getItem('token'),
+      "key":id
+  }
+  return this.http.post(url,body)
+}
 
 }

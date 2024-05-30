@@ -149,16 +149,17 @@ export class DebitComponent implements OnInit, AfterViewInit {
   })
 
   ngOnInit(): void {
-    
+     this.isLoading=true;
     this.bankingService.getDropdownForDebitFilter().subscribe({
       next:(res:any)=>{
-        this.isLoading=false;
+       
         console.log('filterDropdownData:', res);
         this.filterDropdownData=res;
         this.channels=res.channels;
         this.preselectedPeriods=res.preselectedPeriods;
         this.transferFilters=res.transferFilters;
         this.groups=res.groups;
+        this.isLoading=false;
       }
     })
 
@@ -168,6 +169,7 @@ export class DebitComponent implements OnInit, AfterViewInit {
         console.log('tabledata:', res);
         this.dataSource= new MatTableDataSource<Payment>(res);
         this.dataSource.paginator = this.paginator;
+        
       }
 
     })
@@ -193,7 +195,8 @@ export class DebitComponent implements OnInit, AfterViewInit {
 
   showTransfers(row:any){
     console.log(row);
-    this.router.navigate(['banking/transfers'],{state:{id:row.relatedAccount.id}})
+    console.log(this.router.url);
+    this.router.navigate(['banking/transfers'],{state:{id:row.id,route_Url:this.router.url}})
     this.selectedRow = row;
 
     

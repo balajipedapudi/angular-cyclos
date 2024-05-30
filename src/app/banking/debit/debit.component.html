@@ -2,11 +2,11 @@
     
   <app-loader></app-loader>
 </div>
-<div style="min-height:90vh;">
+<div style="min-height:90vh;"*ngIf="!isLoading">
     <form [formGroup]="optionDetails">
         <div class="fields-card">
             <div class="col-sm-12 d-flex justify-content-between">
-                <h1>Debit Account</h1>
+              <h2 style="font-size: 18px; font-weight: 400; margin-bottom: 0px;">Debit Account</h2>
                 <div class="d-flex">
                     <button *ngIf="isShowFiltersDebit" mat-button (click)="hideFiltersDebit()"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>Hide Filters</button>
                     <button *ngIf="!isShowFiltersDebit" mat-button (click)="showFiltersDebit()"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>Show Filters</button>
