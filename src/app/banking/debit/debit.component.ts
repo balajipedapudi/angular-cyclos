@@ -5,6 +5,7 @@ import { BankingComponent } from '../banking.component';
 import { BankingService } from 'src/app/services/banking.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 // export interface PeriodicElement {
@@ -43,6 +44,7 @@ export class DebitComponent implements OnInit, AfterViewInit {
   options:any=[]; 
   filterDropdownData: any;
   accountInfo:any;
+  selectedRow:any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any ;
 
@@ -52,8 +54,9 @@ export class DebitComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['date', 'id', 'amount'];
   dataSource :any;
+  isLoading:any;
   // clickedRows = new Set<PeriodicElement>();
-  constructor(private formBuilder:FormBuilder,private datePipe:DatePipe, private bankingService:BankingService){
+  constructor(private formBuilder:FormBuilder,private datePipe:DatePipe, private bankingService:BankingService, private router:Router, private route:ActivatedRoute){
     const today = new Date();
     this.currentDate = this.datePipe.transform(today, 'MM-dd-yyyy');
 
@@ -113,9 +116,10 @@ export class DebitComponent implements OnInit, AfterViewInit {
   })
 
   ngOnInit(): void {
-    
+    this.isLoading=true;
     this.bankingService.getDropdownForFilter().subscribe({
       next:(res:any)=>{
+        this.isLoading=false;
         console.log('filterDropdownData:', res);
         this.filterDropdownData=res;
         this.channels=res.channels;
@@ -160,6 +164,12 @@ export class DebitComponent implements OnInit, AfterViewInit {
     this.isShowFiltersDebit=false;
   }
 
+  showTransfers(row:any){
+    console.log(row);
+    this.router.navigate(['banking/transfers'],{state:{id:row.relatedAccount.id}})
+    this.selectedRow = row;
 
+    
+  }
 
 }

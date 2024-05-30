@@ -1,4 +1,8 @@
-<div>
+<div *ngIf="isLoading" style="height:90vh;" class="d-flex justify-content-center align-items-center">
+    
+  <app-loader></app-loader>
+</div>
+<div style="min-height:90vh;">
     <form [formGroup]="optionDetails">
         <div class="fields-card">
             <div class="col-sm-12 d-flex justify-content-between">
@@ -156,8 +160,12 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr
         mat-row
+        (click)="showTransfers(row)"
+        [class.demo-row-is-clicked]="selectedRow===row"
         *matRowDef="let row; columns: displayedColumns;"
+        style="cursor: pointer;"
     ></tr>
+
   </table>
 <!--   
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"
