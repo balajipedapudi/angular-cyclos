@@ -7,6 +7,7 @@ import { MatPaginator,MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 interface Type {
   id: string;
@@ -90,7 +91,7 @@ export class DebitComponent implements OnInit, AfterViewInit {
   isLoading:any;
  
   // clickedRows = new Set<PeriodicElement>();
-  constructor(private formBuilder:FormBuilder,private datePipe:DatePipe, private bankingService:BankingService, private router:Router, private route:ActivatedRoute){
+  constructor(private formBuilder:FormBuilder,private datePipe:DatePipe, private bankingService:BankingService, private router:Router, private route:ActivatedRoute,private toastr:ToastrService){
     const today = new Date();
     this.currentDate = this.datePipe.transform(today, 'MM-dd-yyyy');
 
@@ -198,7 +199,7 @@ export class DebitComponent implements OnInit, AfterViewInit {
 
   users:any=[];
   ngOnInit(): void {
-    // this.isLoading = true; // Start spinner
+    //  this.isLoading = true;
   
     this.bankingService.getDropdownForDebitFilter().pipe(
       tap((res: any) => {
@@ -212,17 +213,17 @@ export class DebitComponent implements OnInit, AfterViewInit {
       tap((res: any) => {
         this.dataSource = new MatTableDataSource<Payment>(res);
         this.dataSource.paginator = this.paginator;
-        this.isLoading = false;
       }),
       switchMap(() => this.bankingService.getDebitAccountInfo()),
       tap((res: any) => {
         this.accountInfo = res.status;
-        //this.isLoading = false; // Stop spinner
+        // this.isLoading = false;
       })
     ).subscribe({
       error: (err) => {
         console.error('An error occurred:', err);
-        this.isLoading = false; // Stop spinner in case of error
+        this.isLoading = false;
+        this.toastr.error('Oops something went wrong. Please try again in sometime');
       }
     });
     this.optionDetails.get('user')?.valueChanges.subscribe(value=>{
@@ -239,7 +240,9 @@ export class DebitComponent implements OnInit, AfterViewInit {
  getBalanceClass(value: number): string {
     return value < 0 ? 'negative-balance' : 'positive-balance';
   }
-
+  formatAmount(amount: number): string {
+    return amount > 0 ? `+${amount}` : `${amount}`;
+  }
   showFiltersDebit(){
     this.isShowFiltersDebit=true;
   }

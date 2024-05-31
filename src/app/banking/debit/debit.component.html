@@ -20,7 +20,7 @@
                   </div>
                 </div>
             </div><hr>
-            <div *ngIf="isShowFiltersDebit" class="col-sm-12 d-flex" style="flex-wrap: wrap;">
+            <div *ngIf="isShowFiltersDebit" class="row col-sm-12 d-flex">
                   <div class="col-sm-4 p-2">
                     <mat-form-field floatLabel="auto" appearance="outline" style="width:100%;">
                         <mat-label>Period</mat-label>
@@ -123,11 +123,11 @@
                 <div class="col-sm-6"><h3>Balance on {{ transformDate(accountInfo.beginDate)}}</h3></div>
                 <div class="col-sm-6 d-flex justify-content-end" [ngClass]="getBalanceClass(accountInfo.balanceAtBegin)"><h3>{{accountInfo?.balanceAtBegin}} $</h3></div>
             </div>
-            <div class="col-sm-12 col-md-6 d-flex">
+            <div class="col-sm-12 col-md-6 d-flex justify-content-between">
                 <div class="col-sm-6"><h3>Balance on {{transformDate(accountInfo.endDate)}}</h3></div>
                 <div class="col-sm-6 d-flex justify-content-end" [ngClass]="getBalanceClass(accountInfo.balanceAtEnd)"><h3>{{accountInfo?.balanceAtEnd}} $</h3></div>
             </div>
-            <div class="col-sm-12 col-md-6 d-flex">
+            <div class="col-sm-12 col-md-6 d-flex justify-content-between">
                 <div class="col-sm-6"><h3>Total Received</h3></div>
                 <div class="col-sm-6 d-flex justify-content-end" [ngClass]="getBalanceClass(accountInfo.incomingsum)"><h3>{{accountInfo?.incomingsum}}$</h3></div>
             </div>
@@ -135,22 +135,22 @@
                 <div class="col-sm-6"><h3>Total Paid</h3></div>
                 <div class="col-sm-6 d-flex justify-content-end" [ngClass]="getBalanceClass(accountInfo.outgoingsum)"><h3>{{accountInfo?.outgoingsum}} $</h3></div>
             </div>
-            <div class="col-sm-12 d-flex">
+            <div class="col-sm-12 col-md-6 d-flex justify-content-between">
                 <div class="col-sm-3"><h3>Net Income</h3></div>
-                <div class="col-sm-3 d-flex justify-content-end" [ngClass]="getBalanceClass(accountInfo.netInflow)"><h3>{{accountInfo?.netInflow}} $</h3></div>
+                <div class="col-sm-3 d-flex justify-content-end" [ngClass]="getBalanceClass(accountInfo?.netInflow)"><h3>{{accountInfo?.netInflow}} $</h3></div>
             </div>
         </div>
         <div class="row"*ngIf="!isShowFiltersDebit">
-            <div class="col-sm-12 d-flex">
+            <div class="col-sm-12 col-md-6 d-flex justify-content-between">
                 <div class="col-sm-3"><h3>Balance</h3></div>
-                <div class="col-sm-3" [ngClass]="getBalanceClass(accountInfo.netInflow)"><h3>{{accountInfo?.netInflow}} $</h3></div>
+                <div class="col-sm-3" [ngClass]="getBalanceClass(accountInfo?.netInflow)"><h3>{{accountInfo?.netInflow}} $</h3></div>
             </div>
         </div>
         </div>
         
     </form>
 
-<div class="mt-4 mb-2">
+<div class="mt-4 table-section">
 <table mat-table [dataSource]="dataSource" class="demo-table ">
     <!-- Position Column -->
     <ng-container matColumnDef="date">
@@ -167,7 +167,7 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="amount">
       <th mat-header-cell *matHeaderCellDef>Amount</th>
-      <td mat-cell *matCellDef="let element" [ngClass]="getBalanceClass(element.amount)">{{element.amount}}</td>
+      <td mat-cell *matCellDef="let element" [ngClass]="getBalanceClass(element.amount)">{{formatAmount(element.amount)}}</td>
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

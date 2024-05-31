@@ -31,7 +31,8 @@ import { Router } from '@angular/router';
 })
 export class MyNavComponent implements OnInit {
 constructor(private router:Router){
- if(localStorage.getItem('token') &&localStorage.getItem('token')!='undefined'){
+//  if(localStorage.getItem('token') &&localStorage.getItem('token')!='undefined'){
+  if(localStorage.getItem('token')){
   this.isShow=true;
  }else{
   this.isShow=false

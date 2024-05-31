@@ -4,6 +4,7 @@ import * as ApexCharts from 'apexcharts';
 import { LoginService } from '../services/login.service';
 import { DashboardService } from '../services/dashboard.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,7 +22,7 @@ export class DashboardComponent {
   organizationAccBalance="";
   htmlContent: string = '';
   isLoading:any;
-  constructor(private http:HttpClient,private dashboardServices:DashboardService, private cdr: ChangeDetectorRef,private toastr:ToastrService){
+  constructor(private http:HttpClient,private dashboardServices:DashboardService, private cdr: ChangeDetectorRef,private toastr:ToastrService, private router:Router){
    
   }
   ngOnInit() {
@@ -73,7 +74,7 @@ export class DashboardComponent {
       error: err => {
         console.error('API call error:', err);
         this.isLoading=false;
-        this.toastr.error('Network Error');
+        this.toastr.error('Oops something went wrong. Please try again in sometime');
       }
     });
     
@@ -196,5 +197,9 @@ export class DashboardComponent {
     return +value < 0 ? 'negative-balance' : 'positive-balance';
   }
   
-
+  goToRespectivePage(name:any){
+    if(name=="Account"){
+    this.router.navigate(['/banking'])
+    }
+  }
 }

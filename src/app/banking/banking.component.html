@@ -1,11 +1,11 @@
 <div class="container"style="min-height: 90vh;">
-    <div class="row mt-5"style="height: 100%;">
+    <div class="row mt-5 mb-3"style="height: 100%;">
         <div class="col-sm-12 col-md-3">
             <div class="tab-section">
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <div class="icon-bg">
                         <!-- <mat-icon aria-hidden="false" fontIcon="{{ item.icon }}"></mat-icon> -->
-                        <i class="bi bi-wallet2"style="font-size: 25px;color:blue;"></i>
+                        <i class="bi bi-wallet2"style="font-size: 25px; color:rgba(15, 104, 178, 1);"></i>
                       </div>
                 <h2 style="font-size: 18px; font-weight: 400;">Banking</h2>
             </div>
@@ -13,7 +13,7 @@
                 <div class="p-2">
                 <div *ngFor="let item of menuItem">
                     <div class="link_text" style="padding-left: 10px;" routerLinkActive="active" [routerLink]=item.routerLink>
-                        <span style="margin-right: 10px;"><i class={{item.icon}} style="font-size: 22px;color:blue;"></i></span>
+                        <span style="margin-right: 10px;"><i class={{item.icon}} style="font-size: 22px;color:rgba(15, 104, 178, 1);"></i></span>
                         {{item.name}}
                     </div>
                 </div>

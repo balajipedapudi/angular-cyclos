@@ -3,7 +3,7 @@
   <app-loader></app-loader>
 </div>
 
-<div class="container" *ngIf="!isLoading">
+<div class="container"style="min-height:90vh;" *ngIf="!isLoading">
    
     <div class="row mt-2 p-3 row-gap-3 gy-3 ">
       <div class="col-sm-12 col-md-12 d-flex flex-column  icons-section">
@@ -14,7 +14,7 @@
         </div>
         <div class="row">
         <div *ngFor="let item of quickAccessWithIcons" class="col-sm-12 col-md-2 col-lg-1_5">
-          <div class="feature d-flex flex-column align-items-center">
+          <div class="feature d-flex flex-column align-items-center" (click)="goToRespectivePage(item.text)">
             <div class="icon-bg">
               <mat-icon aria-hidden="false" fontIcon="{{ item.icon }}"></mat-icon>
             </div>

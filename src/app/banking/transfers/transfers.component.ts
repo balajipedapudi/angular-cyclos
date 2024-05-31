@@ -20,6 +20,7 @@ export class TransfersComponent {
   channel:any;
   chargeBackId:any;
   pdfId:any;
+  canChargeBack:any
   constructor(private bankingServices:BankingService, private datePipe:DatePipe,private router:Router,private toastr:ToastrService){
 
   }
@@ -41,11 +42,12 @@ this.isLoading=true;
         this.chargeBackId=res.id;
         this.channel=res.channel;
         this.pdfId=res.id;
+        this.canChargeBack=res.canChargeback;
         this.isLoading=false;
       },
       error:(err)=>{
         this.isLoading=false;
-        this.toastr.error('Network Error');
+        this.toastr.error('Oops something went wrong. Please try again in sometime');
       }
     })
    

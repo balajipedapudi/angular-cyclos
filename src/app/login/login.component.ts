@@ -73,23 +73,32 @@ const base64Credentials = btoa(credentials);
 const authorizationHeader = `${base64Credentials}`;
 
 // user agent id
-this.loginServices.logIn(userAgent, authorizationHeader).subscribe((response:any)=>{
+this.loginServices.logIn(userAgent, authorizationHeader).subscribe({
+  next:(response:any)=>{
   console.log(response);
-  localStorage.setItem('cookie',response.Cookie)
+  if(response.statusCode==401){
+    this.toastr.error('Invalid Credentials. Please try again');
+  }else{
+    if(response.Token){
+    localStorage.setItem('cookie',response.Cookie)
   localStorage.setItem('token',response.Token)
   console.log(localStorage.getItem('token'));
-  
-  if(localStorage.getItem('token') && localStorage.getItem('token')!='undefined'){
-    this.comp.isShow=true;
-  }else{
-    this.comp.isShow=false;
-  }
-  if(response.statusCode==401){
-    this.toastr.error('Invalid Credentials');
-  }else{
+  this.comp.isShow=true;
   this.router.navigate(['/dashboard'])
+    }
   }
-});
+  
+  
+  // if(localStorage.getItem('token') && localStorage.getItem('token')!='undefined'){
+  //   this.comp.isShow=true;
+  // }else{
+  //   this.comp.isShow=false;
+  // }
+  
+},
+error:(err)=>{
+  this.toastr.error('Oops something went wrong. Please try again in sometime');
+}});
   }else{
     this.toastr.error('Please Enter Your Credentials');
   }
