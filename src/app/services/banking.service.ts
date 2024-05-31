@@ -42,17 +42,18 @@ export class BankingService {
   }
 
   getDebitAccountInfo(){
-    const url = "http://10.175.1.21:18080/api/gateway/api/accounts/accountype/debit";
-    const body ={
+    const url = "http://10.175.1.21:18080/api/gateway/accounts";
+    const body ={  
       "Cookie": localStorage.getItem('cookie'),
       "Token": localStorage.getItem('token'),
-      "fields":"status",
-      "page":"0",
-      "pageSize":"40",
-      "fromDatePeriod":"2024-04-27T00:00:00.000+01:00",
-      "toDatePeriod":"2024-05-29T23:59:59.999"
+        "fields":"status",
+        "page":"0",
+        "pageSize":"40",
+        "fromDatePeriod":"2024-04-27T00:00:00.000+01:00",
+        "toDatePeriod":"2024-05-29T23:59:59.999",
+          "accountType":"organization"
     }
-
+  
     return this.http.post(url,body);
   }
 
@@ -65,35 +66,49 @@ export class BankingService {
   }
   return this.http.post(url,body);
   }
+  
   getDropdownForOrgFilter(){
-    const cookie = localStorage.getItem('cookie');
-    const token = localStorage.getItem('token');
-    const url ="http://10.175.1.21:18080/api/gateway/api/debitAccount/dataForHistory"
+    const url ="http://10.175.1.21:18080/api/gateway/accounts/dataForHistory"
     const body:any={
-      "Cookie":cookie,
-      "Token":token
-  }
+      "Cookie": localStorage.getItem('cookie'),
+     "Token": localStorage.getItem('token'),
+     "orderBy":"dateDesc",
+     "page":"0",
+     "pageSize":"40",
+     "datePeriod":"2024-04-27T00:00:00.000+01:00",
+     "lowAmountRange":1,
+     "highAmountRange":22000,
+     "SystemFilter":"",
+     "userFilter":"",
+     "direction": "",
+     "groups": "",
+     "channels":"",
+     "accountType":"organization"
+ }
     return this.http.post(url,body);
   }
 
   getOrgTableData(){
+    const url ="http://10.175.1.21:18080/api/gateway/accounts/history";
 
-    const url ="http://10.175.1.21:18080/api/gateway/api/accounts/debit/history";
-    const body:any={
-      "Cookie": localStorage.getItem('cookie'),
+    const body:any=
+  
+{
+  "Cookie": localStorage.getItem('cookie'),
       "Token": localStorage.getItem('token'),
-      "orderBy":"dateDesc",
-      "page":"0",
-      "pageSize":"40",
-      "datePeriod":"2024-04-27T00:00:00.000+01:00",
-      "lowAmountRange":"",
-      "highAmountRange":"",
-      "SystemFilter":"",
-      "userFilter":"",
-      "direction": "",
-      "groups": "",
-      "channels":""
-  }
+     "orderBy":"dateDesc",
+     "page":"0",
+     "pageSize":"40",
+     "datePeriod":"2024-04-27T00:00:00.000+01:00",
+     "lowAmountRange":1,
+     "highAmountRange":20000,
+     "SystemFilter":"",
+     "userFilter":"",
+     "direction": "",
+     "groups": "",
+     "channels":"main",
+     "accountType":"organization"
+ }
   return this.http.post(url, body);
   }
 

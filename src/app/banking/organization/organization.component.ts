@@ -1,92 +1,130 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit,ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BankingService } from 'src/app/services/banking.service';
+import { MatPaginator,MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, tap } from 'rxjs';
 
-
-export interface PeriodicElement {
+interface Type {
+  id: string;
+  internalName: string;
   name: string;
-  position: number;
-  weight: number;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Paul Lokende', weight: 200000},
-  {position: 2, name: 'Mostofa', weight: 40026},
-  {position: 3, name: 'Mostofa', weight: 6941}
-];
+interface RelatedAccount {
+  id: string;
+  kind: string;
+  type: Type;
+}
 
+interface Transaction {
+  id: string;
+  kind: string;
+}
+
+interface Payment {
+  amount: string;
+  date: string;
+  id: string;
+  relatedAccount: RelatedAccount;
+  type: Type;
+  transaction?: Transaction;
+}
+
+const ELEMENT_DATA:Payment[] = [
+ 
+];
 @Component({
   selector: 'app-organization',
   templateUrl: './organization.component.html',
   styleUrls: ['./organization.component.css'],
   providers:[DatePipe]
 })
-export class OrganizationComponent implements OnInit{
+export class OrganizationComponent implements OnInit, AfterViewInit{
   isShowFiltersOrg=false;
   currentDate: string|null;
   oneYearBeforeDate: string|null;
-  options:any=[];
+  options:any=[]; 
   filterDropdownData: any;
   accountInfo:any;
+  selectedRow:any;
 
-  constructor(private formBuilder:FormBuilder,private datePipe:DatePipe,private bankingService:BankingService ){
-     // this.currentDate = this.datePipe.transform(new Date(), 'MM-dd-yyyy');
-     const today = new Date();
-     this.currentDate = this.datePipe.transform(today, 'MM-dd-yyyy');
+   @ViewChild(MatPaginator) paginator: MatPaginator|any;
+   dataSource = new MatTableDataSource<Payment>(ELEMENT_DATA);
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  displayedColumns: string[] = ['date', 'id', 'amount'];
+
+  isLoading:any;
  
-     // Calculate the date one year before
-     const oneYearBefore = new Date();
-     oneYearBefore.setFullYear(today.getFullYear() - 1);
-     this.oneYearBeforeDate = this.datePipe.transform(oneYearBefore, 'MM-dd-yyyy');
-  }
-  ngOnInit(): void {
-    
-    this.bankingService.getDropdownForDebitFilter().subscribe({
-      next:(res:any)=>{
-        console.log('filterDropdownData:', res);
-        this.filterDropdownData=res;
-        this.channels=res.channels;
-        this.preselectedPeriods=res.preselectedPeriods;
-        this.transferFilters=res.transferFilters;
-        this.groups=res.groups;
-      }
-    })
+  // clickedRows = new Set<PeriodicElement>();
+  constructor(private formBuilder:FormBuilder,private datePipe:DatePipe, private bankingService:BankingService, private router:Router, private route:ActivatedRoute){
+    const today = new Date();
+    this.currentDate = this.datePipe.transform(today, 'MM-dd-yyyy');
 
-    this.bankingService.getDebitTableData().subscribe({
-
-      next:(res:any)=>{
-        // let arr = [];
-        // for(let i =0 ;i<res.length;i++){
-        //   let c= new Countries(res[i].date,res[i].relatedAmount.kind=='system'?res[i].relatedAmount.type.name:res[i].relatedAmount.user.display,res[i].amount);
-        //   arr.push(c)
-        // }
-        console.log('tabledata:', res);
-        this.dataSource=res
-        // this.dataSource.paginator = this.paginator;
-        
-      }
-
-    })
-
-    this.bankingService.getDebitAccountInfo().subscribe({
-      next:(res:any)=>{
-        console.log('accountInfo:',res.status);
-        this.accountInfo= res.status;
-      }
-    })
+    // Calculate the date one year before
+    const oneYearBefore = new Date();
+    oneYearBefore.setFullYear(today.getFullYear() - 1);
+    this.oneYearBeforeDate = this.datePipe.transform(oneYearBefore, 'MM-dd-yyyy');
   }
 
-  
   transformDate(date: string): any {
     return this.datePipe.transform(date, 'dd-MM-yyyy');
   }
 
+  downloadFormat(format:any){
+    
+    this.bankingService.downloadReport(format,"debit").subscribe({
+      next:(res:any)=>{
+        console.log(res);
+
+        if(format=="pdf"){
+        const blob = new Blob([res], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
   
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'report.pdf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+  
+        console.log('PDF downloaded');
+        }else if(format=="csv") {
+          const blob = new Blob([res], { type: 'text/csv' });
+
+          // Create a link element
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = `report.${format}`;
+  
+          // Append the link to the body
+          document.body.appendChild(link);
+  
+          // Programmatically click the link to trigger the download
+          link.click();
+  
+          // Clean up and remove the link
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(link.href);
+  
+          console.log('CSV downloaded');
+        }
+      }
+    })
+  }
+
   preselectedPeriods:any =[];
   transferFilters:any=[];
   groups:any=[];
   channels:any=[];
+  // exportFormats:any=[];
   directions:any=[
     {
       id:1,
@@ -117,7 +155,7 @@ export class OrganizationComponent implements OnInit{
 
   ];
 
-  optionDetails=this.formBuilder.group({
+  optionDetails = this.formBuilder.group({
     period:[null],
     filter:[null],
     fromAccount:[null],
@@ -125,8 +163,55 @@ export class OrganizationComponent implements OnInit{
     groups:[null],
     channel:[null],
     direction:[null],
-    orderBy:[null]
-    })
+    orderBy:[null],
+    user:[null] 
+  })
+  // users: string[] = ['One', 'Two', 'Three'];
+
+
+  users:any=[];
+  ngOnInit(): void {
+    //  this.isLoading = true; // Start spinner
+  
+    this.bankingService.getDropdownForOrgFilter().pipe(
+      tap((res: any) => {
+        this.filterDropdownData = res;
+        this.channels = res.channels;
+        this.preselectedPeriods = res.preselectedPeriods;
+        this.transferFilters = res.transferFilters;
+        this.groups = res.groups;
+      }),
+      switchMap(() => this.bankingService.getOrgTableData()),
+      tap((res: any) => {
+        this.dataSource = new MatTableDataSource<Payment>(res);
+        this.dataSource.paginator = this.paginator;
+        this.isLoading = false;
+      }),
+      switchMap(() => this.bankingService.getOrgAccountInfo()),
+      tap((res: any) => {
+        this.accountInfo = res.status;
+        //this.isLoading = false; // Stop spinner
+      })
+    ).subscribe({
+      error: (err) => {
+        console.error('An error occurred:', err);
+        this.isLoading = false; // Stop spinner in case of error
+      }
+    });
+    this.optionDetails.get('user')?.valueChanges.subscribe(value=>{
+
+      this.bankingService.findUsers(value).subscribe({
+        next:(res)=>{
+          this.users=res
+        }
+      })
+     })
+  }
+  
+
+ getBalanceClass(value: number): string {
+    return value < 0 ? 'negative-balance' : 'positive-balance';
+  }
 
   showFiltersOrg(){
     this.isShowFiltersOrg=true;
@@ -134,6 +219,14 @@ export class OrganizationComponent implements OnInit{
   hideFiltersOrg(){
     this.isShowFiltersOrg=false;
   }
-  displayedColumns: string[] = ['date', 'id', 'amount'];
-  dataSource :any;
+
+  showTransfers(row:any){
+    console.log(row);
+    console.log(this.router.url);
+    this.router.navigate(['banking/transfers'],{state:{id:row.id,route_Url:this.router.url}})
+    this.selectedRow = row;
+
+    
+  }
+
 }
