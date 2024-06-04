@@ -41,6 +41,12 @@
                         <h3>From</h3>
                     </div>
                     <div class="col-sm-6 d-flex">
+                        <div *ngIf="fromType=='system'; else userIcon">
+                        <i class="bi bi-briefcase icon"></i>
+                    </div>
+                        <ng-template #userIcon>
+                            <i class="bi bi-person-circle icon"></i>
+                          </ng-template>
                         <h3>{{fromAccount}}</h3>
                     </div>
                 </div>
@@ -49,6 +55,13 @@
                         <h3>To</h3>
                     </div>
                     <div class="col-sm-6 d-flex">
+                        <!-- <i class="bi bi-briefcase icon"></i> -->
+                        <div *ngIf="toType=='system'; else userIcon">
+                            <i class="bi bi-briefcase icon"></i>
+                        </div>
+                            <ng-template #userIcon>
+                                <i class="bi bi-person-circle icon"></i>
+                              </ng-template>
                         <h3>{{toAccount}}</h3>
                     </div>
                 </div>
@@ -60,7 +73,7 @@
                         <h3>{{paymentType}}</h3>
                     </div>
                 </div>
-                <div class="col-sm-12 d-flex" *ngIf="canChargeBack=='true'">
+                <div class="col-sm-12 d-flex" *ngIf="channel!=undefined">
                     <div class="col-sm-6 col-md-3">
                         <h3>Channel</h3>
                     </div>
@@ -68,7 +81,7 @@
                         <h3>{{channel}}</h3>
                     </div>
                 </div>
-                <div class="col-sm-12 d-flex">
+                <div class="col-sm-12 d-flex"*ngIf="canChargeBack=='false'">
                     <div class="col-sm-6 col-md-3">
                         <h3>Chargeback of</h3>
                     </div>

@@ -20,7 +20,9 @@ export class TransfersComponent {
   channel:any;
   chargeBackId:any;
   pdfId:any;
-  canChargeBack:any
+  canChargeBack:any;
+  fromType:any;
+  toType:any;
   constructor(private bankingServices:BankingService, private datePipe:DatePipe,private router:Router,private toastr:ToastrService){
 
   }
@@ -36,14 +38,18 @@ this.isLoading=true;
         console.log(res);
         this.amount=res.amount;
         this.date=this.transformDate(res?.date);
-        this.fromAccount=res.from;
-        this.toAccount=res.to;
+        this.fromAccount=res.from_name;
+        this.toAccount=res.to_name;
         this.paymentType=res.type;
-        this.chargeBackId=res.id;
+        this.chargeBackId=res.chargeBackId;
         this.channel=res.channel;
         this.pdfId=res.id;
         this.canChargeBack=res.canChargeback;
         this.isLoading=false;
+        this.fromType=res.from_kind;
+        this.toType=res.to_kind;
+        console.log(this.channel);
+        
       },
       error:(err)=>{
         this.isLoading=false;

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import urls from 'src/urls';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class LoginService {
   
   logIn(userAgentId:any,authId:any){
     //const url="http://localhost:3000/test"
-     const url = `http://10.175.1.21:18080/api/gateway/api/auth/session`;
+     const url = urls.sessionToken;
     // const headers = new HttpHeaders({
     //   'Content-Type': 'application/json',
     //   'Authorization':authId,

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import urls from 'src/urls';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,7 @@ export class DashboardService {
   homePage(cookie:any,token:any){
     console.log(cookie,token);
     
-    const url="http://10.175.1.21:18080/api/gateway/api/frontend/home";
+    const url=urls.home;
    // const url1="http://localhost:3000/chart";
     const body:any={
       "screenSize":"desktop",

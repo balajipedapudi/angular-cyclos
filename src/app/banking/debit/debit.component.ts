@@ -86,7 +86,7 @@ export class DebitComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  displayedColumns: string[] = ['date', 'id', 'amount'];
+  displayedColumns: string[] = ['icon','date', 'id', 'amount'];
 
   isLoading:any;
  
