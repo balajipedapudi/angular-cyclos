@@ -9,7 +9,8 @@ const urls={
     searchUser:contextPaths.users,
     downloadReport:contextPaths.accounts+"/export",
     home:contextPaths.frontend+"/home",
-    sessionToken:contextPaths.auth+"/session"
+    sessionToken:contextPaths.auth+"/session",
+    logout:contextPaths.auth+"/session/logout"
 }
 
 export default urls;

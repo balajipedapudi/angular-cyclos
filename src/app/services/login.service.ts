@@ -26,7 +26,15 @@ export class LoginService {
      return this.http.post(url,body);
     //return this.http.get(url);
   }
-
+  logOut(){
+     const url = urls.logout;
+    const body={
+      "Token": localStorage.getItem('token'),
+      "Cookie":localStorage.getItem('cookie')
+  }
+     return this.http.post(url,body);
+    //return this.http.get(url);
+  }
   
 
 }

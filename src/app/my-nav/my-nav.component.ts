@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LoginService } from '../services/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 // export const userResolver: ResolveFn<boolean> = (
@@ -30,7 +32,7 @@ import { Router } from '@angular/router';
 
 })
 export class MyNavComponent implements OnInit {
-constructor(private router:Router){
+constructor(private router:Router, private logInServices:LoginService,private toastr:ToastrService){
 //  if(localStorage.getItem('token') &&localStorage.getItem('token')!='undefined'){
   if(localStorage.getItem('token')){
   this.isShow=true;
@@ -53,11 +55,25 @@ constructor(private router:Router){
   public displayName=sessionStorage.getItem('userName');
   
    logout(){
-     localStorage.removeItem('token');
-     localStorage.removeItem('cookie');
+    this.logInServices.logOut().subscribe({
+      next:(response:any)=>{
+        console.log(response);
+        if(response.statusCode==200){
+          localStorage.removeItem('token');
+          localStorage.removeItem('cookie');
+         
+         this.isShow=false
+         this.router.navigate(['/login'])
+        }else{
+          this.toastr.error('Oops something went wrong. Please try again in sometime');
+        }
+        
+      },
+      error:(err)=>{
+        this.toastr.error('Oops something went wrong. Please try again in sometime');
+      }
+    })
     
-    this.isShow=false
-    this.router.navigate(['/login'])
   }
 
 }
